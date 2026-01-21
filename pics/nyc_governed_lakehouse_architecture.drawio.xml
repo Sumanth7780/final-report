@@ -1,0 +1,76 @@
+<mxfile host="app.diagrams.net" modified="2026-01-21T00:00:00.000Z" agent="ChatGPT" version="22.0.8">
+  <diagram name="NYC Taxi Governed Lakehouse Architecture">
+    <mxGraphModel dx="1434" dy="827" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="title" value="NYC Taxi Governed Lakehouse – Final Live Demo Architecture" style="text;html=1;fontSize=20;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="800" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- RAW ZONE -->
+        <mxCell id="raw" value="S3 RAW ZONE&#10;• Immutable source data&#10;• Yellow Taxi trips (Parquet)&#10;• Taxi zone lookup (CSV)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="120" width="260" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- VALIDATED ZONE -->
+        <mxCell id="validated" value="S3 VALIDATED ZONE (Delta)&#10;• Schema enforcement&#10;• Basic sanity checks&#10;• Governance metadata" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="120" width="300" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- CURATED ZONE -->
+        <mxCell id="curated" value="S3 CURATED ZONE (Delta)&#10;• Business rules&#10;• Enrichment (zones, duration)&#10;• DQ pass records" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="720" y="120" width="300" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- MASTER ZONE -->
+        <mxCell id="master" value="S3 MASTER ZONE (MDM)&#10;• Golden records&#10;• Stewardship state&#10;• Versioned lifecycle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="120" width="300" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- GLUE -->
+        <mxCell id="glue" value="AWS Glue (Spark + Delta)&#10;• Day 6–10 ETL jobs&#10;• Quality gates&#10;• MDM match & dedup&#10;• Orphan detection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="300" width="660" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- STEP FUNCTIONS -->
+        <mxCell id="sfn" value="AWS Step Functions&#10;• End-to-end orchestration&#10;• Governance checkpoints&#10;• Retry / failure handling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff;strokeColor=#000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="480" width="340" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- ATHENA -->
+        <mxCell id="athena" value="Amazon Athena&#10;• Serverless analytics&#10;• Certified views&#10;• Glue Catalog integration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="680" width="300" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- REDSHIFT -->
+        <mxCell id="redshift" value="Amazon Redshift&#10;• Dimensional model (Star schema)&#10;• dim_zone, fact_trip&#10;• Analytics consumption" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="720" y="680" width="300" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- MONITORING -->
+        <mxCell id="monitoring" value="Monitoring & Auditability&#10;• CloudWatch logs & alarms&#10;• DQ reports&#10;• Delta history&#10;• Run audit trail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#999;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="480" width="300" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="e1" style="endArrow=block;" edge="1" parent="1" source="raw" target="validated"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="endArrow=block;" edge="1" parent="1" source="validated" target="curated"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="endArrow=block;" edge="1" parent="1" source="curated" target="master"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e4" style="endArrow=block;" edge="1" parent="1" source="raw" target="glue"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="endArrow=block;" edge="1" parent="1" source="validated" target="glue"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="endArrow=block;" edge="1" parent="1" source="curated" target="glue"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="endArrow=block;" edge="1" parent="1" source="master" target="glue"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="e8" style="endArrow=block;" edge="1" parent="1" source="sfn" target="glue"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="endArrow=block;" edge="1" parent="1" source="glue" target="athena"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="endArrow=block;" edge="1" parent="1" source="glue" target="redshift"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="endArrow=block;" edge="1" parent="1" source="glue" target="monitoring"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
