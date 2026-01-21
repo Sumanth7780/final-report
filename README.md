@@ -27,7 +27,8 @@ A production-style architecture where **data flows through governed zones with q
 - Architecture overview: ![Architecture](pics/Architecture_buckets.jpeg)  
 
 ---
-
+## CI/CD git action
+![CI/CD](pics/CI_CD.jpeg)  
 ## Orchestration — Step Functions (Core Control Plane)
 
 ### What Was Implemented
@@ -318,4 +319,5 @@ After each run, outputs are written to governed S3 zones.
 ---
 
 **End of Week 4 — Final Live Demo Documentation**
+
 
