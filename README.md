@@ -302,21 +302,6 @@ After each run, outputs are written to governed S3 zones.
 
 ---
 
-## Final Checklist (Before Presentation)
-
-| Artifact | Status |
-|----------|--------|
-| Architecture diagram | ✅ |
-| Step Functions orchestration | ✅ |
-| EventBridge trigger | ✅ |
-| Glue job executions | ✅ |
-| Data quality pass/fail | ✅ |
-| MDM golden records | ✅ |
-| SCD Type 2 history | ✅ |
-| Athena certified views | ✅ |
-| Redshift dimensional model | ✅ |
-| QuickSight dashboard | ✅ |
-| Audit & monitoring | ✅ |
 
 ---
 
@@ -333,3 +318,4 @@ After each run, outputs are written to governed S3 zones.
 ---
 
 **End of Week 4 — Final Live Demo Documentation**
+
